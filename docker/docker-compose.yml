@@ -7,5 +7,11 @@ services:
       - '27017:27017'
     volumes:
       - dbdata6:/data/db
+    networks:
+      - devnetwork
+
 volumes:
   dbdata6:
+networks:
+  devnetwork:
+    driver: bridge
