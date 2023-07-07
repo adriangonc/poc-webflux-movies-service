@@ -100,6 +100,28 @@ class FluxAndMonoControllerTest {
     }
 
     @Test
+    void numbersStreamTest() {
+        //given
+
+
+        var stream = webTestClient.get()
+                .uri("/number-stream")
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+                .returnResult(Long.class)
+                .getResponseBody();
+        //when
+
+        //then
+        StepVerifier.create(stream)
+                .expectNext(0L,1L,2L,3L,4L)
+                .thenCancel()
+                .verify();
+
+    }
+
+    @Test
     void numbersStream() {
         //given
 
