@@ -7,6 +7,9 @@ import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.test.StepVerifier;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @WebFluxTest(controllers = FluxAndMonoController.class)
@@ -48,6 +51,33 @@ class FluxAndMonoControllerTest {
         StepVerifier.create(numberFlux)
                 .expectNext(1532, 1533, 1534)
                 .verifyComplete();
+    }
+
+    @Test
+    void numbersFluxResponseUsingLambdaTest() {
+        //given
+        List<Integer> numberList = new ArrayList<>();
+        numberList.add(1532);
+        numberList.add(1533);
+        numberList.add(1534);
+
+        var numberFlux = webTestClient.get()
+                .uri("/number-flux")
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+                .expectBodyList(Integer.class)
+                .consumeWith(listEntityExchangeResult -> {
+
+                    var response = listEntityExchangeResult.getResponseBody();
+                    assert response.size() == 3;
+                    assert (response.equals(numberList));
+
+                });
+        //when
+
+        //then
+
     }
 
     @Test
