@@ -121,12 +121,5 @@ class FluxAndMonoControllerTest {
 
     }
 
-    @Test
-    void numbersStream() {
-        //given
 
-        //when
-
-        //then
-    }
 }
