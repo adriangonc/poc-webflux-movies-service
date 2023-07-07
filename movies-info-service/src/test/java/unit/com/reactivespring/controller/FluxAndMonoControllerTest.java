@@ -61,7 +61,7 @@ class FluxAndMonoControllerTest {
         numberList.add(1533);
         numberList.add(1534);
 
-        var numberFlux = webTestClient.get()
+        webTestClient.get()
                 .uri("/number-flux")
                 .exchange()
                 .expectStatus()
@@ -78,6 +78,25 @@ class FluxAndMonoControllerTest {
 
         //then
 
+    }
+
+    @Test
+    void nameMonoTest() {
+        //given
+
+        //when
+
+        //then
+        webTestClient.get()
+                .uri("/mono-name")
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+                .expectBodyList(String.class)
+                .consumeWith(listEntityExchangeResult -> {
+                   var response = listEntityExchangeResult.getResponseBody().get(0);
+                   assertEquals(response, "Adriano");
+                });
     }
 
     @Test

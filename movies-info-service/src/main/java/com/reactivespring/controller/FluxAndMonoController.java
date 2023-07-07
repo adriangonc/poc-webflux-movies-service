@@ -4,6 +4,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.awt.*;
 import java.time.Duration;
@@ -15,6 +16,11 @@ public class FluxAndMonoController {
     public Flux<Integer> numbersFlux(){
         return Flux.just(1532, 1533, 1534)
                 .log();
+    }
+
+    @GetMapping("/mono-name")
+    public Mono<String> nameMono(){
+        return Mono.just("Adriano").log();
     }
 
     @GetMapping(value = "/number-stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
