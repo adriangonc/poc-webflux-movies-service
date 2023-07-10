@@ -76,17 +76,36 @@ class MovieInfoRepositoryIntegrationTest {
         //given
 
         //when
-        var moviesInfoMono = new MovieInfo("MVI_1", "Alien O oitavo passageiro", 1979,
-                List.of("Tom Skerritt" ,"Sigourney Weaver" ,"Veronica Cartwright" ,"Harry Dean Stanton"
-                        ,"John Hurt" ,"Ian Holm" ,"Yaphet Kotto"), LocalDate.parse("1979-05-25"));
+        var moviesInfoMono = new MovieInfo("MVI_4", "Parasita", 2019,
+                List.of("Song Kang-ho" ,"Jang Hye-jin" ,"Choi Woo-shik" ,"Park So-dam"
+                        ,"Lee Sun-kyun" ,"Cho Yeo-jeong"), LocalDate.parse("2019-07-11"));
 
-        var moviesInfoEdited = movieInfoRepository.save(moviesInfoMono);
+        var moviesInfoEdited = movieInfoRepository.save(moviesInfoMono).log();
 
         //then
         StepVerifier.create(moviesInfoEdited)
                 .assertNext(movieInfo -> {
                     assertNotNull(movieInfo.getMovieInfoId());
-                    assertEquals("Alien O oitavo passageiro", movieInfo.getName());
+                    assertEquals("Parasita", movieInfo.getName());
+                })
+                .verifyComplete();
+    }
+
+    @Test
+    void updateMovieInfo(){
+        //given
+
+        //when
+        var moviesInfoMono = movieInfoRepository.findById("MVI_1").block();
+        moviesInfoMono.setName("Alien: O oitavo passageiro");
+
+        var moviesInfoEdited = movieInfoRepository.save(moviesInfoMono).log();
+
+        //then
+        StepVerifier.create(moviesInfoEdited)
+                .assertNext(movieInfo -> {
+                    assertNotNull(movieInfo.getMovieInfoId());
+                    assertEquals("Alien: O oitavo passageiro", movieInfo.getName());
                 })
                 .verifyComplete();
     }
