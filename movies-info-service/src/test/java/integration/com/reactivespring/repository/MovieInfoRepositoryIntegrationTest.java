@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataMongoTest
 @ActiveProfiles("test")
@@ -66,6 +67,26 @@ class MovieInfoRepositoryIntegrationTest {
         StepVerifier.create(moviesInfoMono)
                 .assertNext(movieInfo -> {
                     assertEquals("Túmulo dos Vaga-Lumes", movieInfo.getName());
+                })
+                .verifyComplete();
+    }
+
+    @Test
+    void saveMovieInfo(){
+        //given
+
+        //when
+        var moviesInfoMono = new MovieInfo("MVI_1", "Alien O oitavo passageiro", 1979,
+                List.of("Tom Skerritt" ,"Sigourney Weaver" ,"Veronica Cartwright" ,"Harry Dean Stanton"
+                        ,"John Hurt" ,"Ian Holm" ,"Yaphet Kotto"), LocalDate.parse("1979-05-25"));
+
+        var moviesInfoEdited = movieInfoRepository.save(moviesInfoMono);
+
+        //then
+        StepVerifier.create(moviesInfoEdited)
+                .assertNext(movieInfo -> {
+                    assertNotNull(movieInfo.getMovieInfoId());
+                    assertEquals("Alien O oitavo passageiro", movieInfo.getName());
                 })
                 .verifyComplete();
     }
