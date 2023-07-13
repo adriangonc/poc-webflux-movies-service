@@ -16,7 +16,7 @@ public class MoviesInfoController {
         this.movieInfoService = movieInfoService;
     }
 
-    @PostMapping("/movieinfos")
+    @PostMapping("/movieinfo")
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<MovieInfo> addMovieInfo(@RequestBody MovieInfo movieInfo){
         return movieInfoService.addMovieInfo(movieInfo);
