@@ -110,4 +110,18 @@ class MovieInfoRepositoryIntegrationTest {
                 .verifyComplete();
     }
 
+    @Test
+    void deleteMovieInfo(){
+        //given
+
+        //when
+        movieInfoRepository.deleteById("MVI_1").block();
+        var moviesInfoFlux = movieInfoRepository.findAll().log();
+
+        //then
+        StepVerifier.create(moviesInfoFlux)
+                .expectNextCount(2)
+                .verifyComplete();
+    }
+
 }
