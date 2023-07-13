@@ -12,10 +12,14 @@ public class MoviesInfoController {
 
     private MovieInfoService movieInfoService;
 
+    public MoviesInfoController(MovieInfoService movieInfoService) {
+        this.movieInfoService = movieInfoService;
+    }
+
     @PostMapping("/movieinfos")
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<MovieInfo> addMovieInfo(@RequestBody MovieInfo movieInfo){
-        return Mono.empty();
+        return movieInfoService.addMovieInfo(movieInfo);
     }
 
 }
