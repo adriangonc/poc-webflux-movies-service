@@ -75,4 +75,23 @@ class MoviesInfoControllerIntegrationTest {
 
 
     }
+
+    @Test
+    void listAllMoviesInfoTest() {
+        //when
+
+        webTestClient
+                .get()
+                .uri(MOVIES_INFO_URL)
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+                .expectBodyList(MovieInfo.class)
+                .hasSize(3);
+
+        //then
+
+
+    }
+
 }
