@@ -13,6 +13,7 @@ Projeto de estudos do spring webflux.
 - Java
 - Spring web flux
 - Spring modules
+- MongoDB
 - Programação funcional
 - REST
 - Maven
