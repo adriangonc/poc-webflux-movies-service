@@ -8,6 +8,8 @@ import java.util.List;
 @Data
 public class MovieInfoDTO {
 
+    private String id;
+
     private String name;
 
     private Integer year;

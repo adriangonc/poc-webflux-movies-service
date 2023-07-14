@@ -1,6 +1,7 @@
 package com.reactivespring.controller;
 
 import com.reactivespring.domain.MovieInfo;
+import com.reactivespring.dto.MovieInfoDTO;
 import com.reactivespring.service.MovieInfoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +31,8 @@ public class MoviesInfoController {
 
     @PutMapping("/movieinfo")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<MovieInfo> editMovieInfo(@RequestBody MovieInfo movieInfo){
-        return movieInfoService.editMovieInfo(movieInfo);
+    public Mono<MovieInfo> editMovieInfo(@RequestBody MovieInfo movieInfoDTO){
+        return movieInfoService.editMovieInfo(movieInfoDTO);
     }
 
 }
