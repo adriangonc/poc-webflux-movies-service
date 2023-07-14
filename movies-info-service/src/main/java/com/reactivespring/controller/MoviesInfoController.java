@@ -28,4 +28,10 @@ public class MoviesInfoController {
         return movieInfoService.addMovieInfo(movieInfo);
     }
 
+    @PutMapping("/movieinfo")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono<MovieInfo> editMovieInfo(@RequestBody MovieInfo movieInfo){
+        return movieInfoService.editMovieInfo(movieInfo);
+    }
+
 }

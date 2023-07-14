@@ -21,4 +21,8 @@ public class MovieInfoService {
     public Flux<MovieInfo> listAllMoviesInfo() {
         return movieInfoRepository.findAll();
     }
+
+    public Mono<MovieInfo> editMovieInfo(MovieInfo movieInfo) {
+        return movieInfoRepository.save(movieInfo);
+    }
 }
