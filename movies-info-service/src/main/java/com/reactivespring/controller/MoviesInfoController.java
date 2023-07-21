@@ -29,10 +29,10 @@ public class MoviesInfoController {
         return movieInfoService.addMovieInfo(movieInfo);
     }
 
-    @PutMapping("/movieinfo")
+    @PutMapping("/movieinfo/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<MovieInfo> editMovieInfo(@RequestBody MovieInfo movieInfoDTO){
-        return movieInfoService.editMovieInfo(movieInfoDTO);
+    public Mono<MovieInfo> editMovieInfo(@RequestBody MovieInfo movieInfoDTO, @PathVariable String id){
+        return movieInfoService.editMovieInfo(movieInfoDTO, id);
     }
 
     @GetMapping("/movieinfo/{id}")
