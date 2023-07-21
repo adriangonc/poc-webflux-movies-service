@@ -139,6 +139,23 @@ public class MovieInfoControllerUnitTest {
 
         //then
 
+    }
+
+    @Test
+    void deleteMovieInfoTest(){
+        var movieInfoId = "MVI_3";
+
+        when(movieInfoServiceMock.deleteMovieInfo(isA(String.class))).thenReturn(
+                Mono.empty()
+        );
+
+        webTestClient.delete()
+                .uri(Utils.MOVIES_INFO_URL+"/{id}",movieInfoId)
+                .exchange()
+                .expectStatus()
+                .isNoContent()
+                .expectBody(Void.class);
+
 
     }
 
