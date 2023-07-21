@@ -114,4 +114,35 @@ class MoviesInfoControllerIntegrationTest {
 
     }
 
+    @Test
+    void editMovieInfo() {
+        var movieInfo = new MovieInfo(null, "Barbie", 2023,
+                List.of("Margot Robbie" ,"Ryan Gosling"),
+                LocalDate.parse("2023-07-20"));
+
+        var movieInfoId = "MVI_3";
+
+        //when
+
+        webTestClient
+                .put()
+                .uri(MOVIES_INFO_URL+"/{id}", movieInfoId)
+                .bodyValue(movieInfo)
+                .exchange()
+                .expectStatus()
+                .isCreated()
+                .expectBody(MovieInfo.class)
+                .consumeWith(movieInfoEntityExchangeResult -> {
+                    var updatedMovieInfo = movieInfoEntityExchangeResult.getResponseBody();
+                    assert updatedMovieInfo != null;
+                    assert updatedMovieInfo.getMovieInfoId()!=null;
+
+                    assertEquals("Barbie", updatedMovieInfo.getName());
+                });
+
+        //then
+
+
+    }
+
 }
