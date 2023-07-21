@@ -41,4 +41,9 @@ public class MoviesInfoController {
         return movieInfoService.listMovieInfoById(id);
     }
 
+    @DeleteMapping("movieinfo/{id}")
+    public Mono<Void> deleteMovieInfo(@PathVariable String id){
+        return movieInfoService.deleteMovieInfo(id);
+    }
+
 }
