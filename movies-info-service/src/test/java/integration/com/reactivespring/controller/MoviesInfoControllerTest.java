@@ -105,11 +105,8 @@ class MoviesInfoControllerIntegrationTest {
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful()
-                .expectBody(MovieInfo.class)
-                .consumeWith(movieInfoEntityExchangeResult -> {
-                    var movieInfo = movieInfoEntityExchangeResult.getResponseBody();
-                    assertNotNull(movieInfo);
-                });
+                .expectBody()
+                .jsonPath("$.name").isEqualTo("Alien");
 
         //then
 
