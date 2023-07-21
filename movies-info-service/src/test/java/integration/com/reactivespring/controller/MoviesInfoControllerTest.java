@@ -2,6 +2,7 @@ package com.reactivespring.controller;
 
 import com.reactivespring.domain.MovieInfo;
 import com.reactivespring.repository.MovieInfoRepository;
+import com.reactivespring.utils.Utils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureWebTestClient
 class MoviesInfoControllerIntegrationTest {
 
-    public static final String MOVIES_INFO_URL = "/v1/movieinfo";
+
     @Autowired
     MovieInfoRepository movieInfoRepository;
 
@@ -59,7 +60,7 @@ class MoviesInfoControllerIntegrationTest {
 
         webTestClient
                 .post()
-                .uri(MOVIES_INFO_URL)
+                .uri(Utils.MOVIES_INFO_URL)
                 .bodyValue(movieInfo)
                 .exchange()
                 .expectStatus()
@@ -82,7 +83,7 @@ class MoviesInfoControllerIntegrationTest {
 
         webTestClient
                 .get()
-                .uri(MOVIES_INFO_URL)
+                .uri(Utils.MOVIES_INFO_URL)
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful()
@@ -101,7 +102,7 @@ class MoviesInfoControllerIntegrationTest {
 
         webTestClient
                 .get()
-                .uri(MOVIES_INFO_URL+"/{id}", movieInfoId)
+                .uri(Utils.MOVIES_INFO_URL+"/{id}", movieInfoId)
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful()
@@ -126,7 +127,7 @@ class MoviesInfoControllerIntegrationTest {
 
         webTestClient
                 .put()
-                .uri(MOVIES_INFO_URL+"/{id}", movieInfoId)
+                .uri(Utils.MOVIES_INFO_URL+"/{id}", movieInfoId)
                 .bodyValue(movieInfo)
                 .exchange()
                 .expectStatus()
@@ -152,7 +153,7 @@ class MoviesInfoControllerIntegrationTest {
 
         //when
         webTestClient.delete()
-                .uri(MOVIES_INFO_URL+"/{id}",movieInfoId)
+                .uri(Utils.MOVIES_INFO_URL+"/{id}",movieInfoId)
                 .exchange()
                 .expectStatus()
                 .isNoContent()
@@ -161,7 +162,7 @@ class MoviesInfoControllerIntegrationTest {
         //then
         webTestClient
                 .get()
-                .uri(MOVIES_INFO_URL)
+                .uri(Utils.MOVIES_INFO_URL)
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful()
