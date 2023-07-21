@@ -106,7 +106,8 @@ class MoviesInfoControllerIntegrationTest {
                 .expectStatus()
                 .is2xxSuccessful()
                 .expectBody()
-                .jsonPath("$.name").isEqualTo("Alien");
+                .jsonPath("$.name").isEqualTo("Alien")
+                .jsonPath("$.year").isEqualTo(1979);
 
         //then
 
