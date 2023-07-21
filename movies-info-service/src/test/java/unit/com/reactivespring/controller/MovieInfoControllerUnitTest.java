@@ -105,6 +105,44 @@ public class MovieInfoControllerUnitTest {
                 });
     }
 
+    @Test
+    void editMovieInfo() {
+        var movieInfo = new MovieInfo(null, "Parasita", 2019,
+                List.of("Song Kang-ho" ,"Jang Hye-jin" ,"Choi Woo-shik" ,"Park So-dam"
+                        ,"Lee Sun-kyun" ,"Cho Yeo-jeong"), LocalDate.parse("2019-07-11"));
+
+        var movieInfoId = "MVI_3";
+
+        when(movieInfoServiceMock.editMovieInfo(isA(MovieInfo.class), isA(String.class))).thenReturn(
+                Mono.just(new MovieInfo(movieInfoId, "Parasita", 2019,
+                        List.of("Song Kang-ho" ,"Jang Hye-jin" ,"Choi Woo-shik" ,"Park So-dam"
+                                ,"Lee Sun-kyun" ,"Cho Yeo-jeong"), LocalDate.parse("2019-07-11")))
+        );
+
+        //when
+
+        webTestClient
+                .put()
+                .uri(Utils.MOVIES_INFO_URL+"/{id}", movieInfoId)
+                .bodyValue(movieInfo)
+                .exchange()
+                .expectStatus()
+                .isCreated()
+                .expectBody(MovieInfo.class)
+                .consumeWith(movieInfoEntityExchangeResult -> {
+                    var updatedMovieInfo = movieInfoEntityExchangeResult.getResponseBody();
+                    assert updatedMovieInfo != null;
+                    assert updatedMovieInfo.getMovieInfoId()!=null;
+
+                    assertEquals("Parasita", updatedMovieInfo.getName());
+                });
+
+        //then
+
+
+    }
+
+
     public List<MovieInfo> createMoviesList(){
         return List.of(new MovieInfo("MVI_1", "Alien", 1979,
                         List.of("Tom Skerritt" ,"Sigourney Weaver" ,"Veronica Cartwright" ,"Harry Dean Stanton"
