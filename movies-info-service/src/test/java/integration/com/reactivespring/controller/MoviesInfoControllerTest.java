@@ -145,4 +145,28 @@ class MoviesInfoControllerIntegrationTest {
 
     }
 
+    @Test
+    void deleteMovieInfoTest(){
+        //given
+        var movieInfoId = "MVI_3";
+
+        //when
+        webTestClient.delete()
+                .uri(MOVIES_INFO_URL+"/{id}",movieInfoId)
+                .exchange()
+                .expectStatus()
+                .isNoContent()
+                .expectBody(Void.class);
+
+        //then
+        webTestClient
+                .get()
+                .uri(MOVIES_INFO_URL)
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+                .expectBodyList(MovieInfo.class)
+                .hasSize(2);
+    }
+
 }
