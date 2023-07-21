@@ -28,4 +28,8 @@ public class MovieInfoService {
         //TODO terminar implementação
         return movieInfoRepository.save(movieInfo);
     }
+
+    public Mono<MovieInfo> listMovieInfoById(String id) {
+        return movieInfoRepository.findById(id);
+    }
 }

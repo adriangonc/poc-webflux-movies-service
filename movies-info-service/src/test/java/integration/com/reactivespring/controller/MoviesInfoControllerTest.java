@@ -94,4 +94,26 @@ class MoviesInfoControllerIntegrationTest {
 
     }
 
+    @Test
+    void getMovieInfoByIdTest() {
+        //when
+        var movieInfoId = "MVI_1";
+
+        webTestClient
+                .get()
+                .uri(MOVIES_INFO_URL+"/{id}", movieInfoId)
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+                .expectBody(MovieInfo.class)
+                .consumeWith(movieInfoEntityExchangeResult -> {
+                    var movieInfo = movieInfoEntityExchangeResult.getResponseBody();
+                    assertNotNull(movieInfo);
+                });
+
+        //then
+
+
+    }
+
 }
