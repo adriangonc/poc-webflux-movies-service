@@ -11,10 +11,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
 
 
@@ -67,6 +71,38 @@ public class MovieInfoControllerUnitTest {
                 .jsonPath("$.name").isEqualTo("Alien");
 
         //then
+    }
+
+    @Test
+    void saveMovieInfo(){
+        //given
+
+        //when
+        var moviesInfoMono = new MovieInfo(null, "Parasita", 2019,
+                List.of("Song Kang-ho" ,"Jang Hye-jin" ,"Choi Woo-shik" ,"Park So-dam"
+                        ,"Lee Sun-kyun" ,"Cho Yeo-jeong"), LocalDate.parse("2019-07-11"));
+
+        when(movieInfoServiceMock.addMovieInfo(isA(MovieInfo.class))).thenReturn(
+                Mono.just(new MovieInfo("MOCK_ID1", "Parasita", 2019,
+                        List.of("Song Kang-ho" ,"Jang Hye-jin" ,"Choi Woo-shik" ,"Park So-dam"
+                                ,"Lee Sun-kyun" ,"Cho Yeo-jeong"), LocalDate.parse("2019-07-11")))
+        );
+
+        //then
+        webTestClient
+                .post()
+                .uri(Utils.MOVIES_INFO_URL)
+                .bodyValue(moviesInfoMono)
+                .exchange()
+                .expectStatus()
+                .isCreated()
+                .expectBody(MovieInfo.class)
+                .consumeWith(movieInfoEntityExchangeResult -> {
+                    var savedMovieInfo = movieInfoEntityExchangeResult.getResponseBody();
+                    assert savedMovieInfo != null;
+                    assert savedMovieInfo.getMovieInfoId() != null;
+                    assertEquals("MOCK_ID1", savedMovieInfo.getMovieInfoId());
+                });
     }
 
     public List<MovieInfo> createMoviesList(){
