@@ -180,4 +180,36 @@ public class MovieInfoControllerUnitTest {
                 LocalDate.parse("1979-05-25"));
         return Mono.just(moveInfo);
     }
+
+    @Test
+    void addMovieInfoValidation(){
+        //given
+
+        //when
+        var moviesInfoMono = new MovieInfo(null, "Parasita", -2019,
+                List.of("Song Kang-ho" ,"Jang Hye-jin" ,"Choi Woo-shik" ,"Park So-dam"
+                        ,"Lee Sun-kyun" ,"Cho Yeo-jeong"), LocalDate.parse("2019-07-11"));
+
+        when(movieInfoServiceMock.addMovieInfo(isA(MovieInfo.class))).thenReturn(
+                Mono.just(new MovieInfo("MOCK_ID1", "Parasita", 2019,
+                        List.of("Song Kang-ho" ,"Jang Hye-jin" ,"Choi Woo-shik" ,"Park So-dam"
+                                ,"Lee Sun-kyun" ,"Cho Yeo-jeong"), LocalDate.parse("2019-07-11")))
+        );
+
+        //then
+        webTestClient
+                .post()
+                .uri(Utils.MOVIES_INFO_URL)
+                .bodyValue(moviesInfoMono)
+                .exchange()
+                .expectStatus()
+                .isBadRequest()
+                /*.expectBody(MovieInfo.class)
+                .consumeWith(movieInfoEntityExchangeResult -> {
+                    var savedMovieInfo = movieInfoEntityExchangeResult.getResponseBody();
+                    assert savedMovieInfo != null;
+                    assert savedMovieInfo.getMovieInfoId() != null;
+                    assertEquals("MOCK_ID1", savedMovieInfo.getMovieInfoId());
+                })*/;
+    }
 }
