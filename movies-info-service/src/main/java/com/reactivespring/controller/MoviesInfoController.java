@@ -1,9 +1,9 @@
 package com.reactivespring.controller;
 
 import com.reactivespring.domain.MovieInfo;
-import com.reactivespring.dto.MovieInfoDTO;
 import com.reactivespring.service.MovieInfoService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -33,8 +33,11 @@ public class MoviesInfoController {
 
     @PutMapping("/movieinfo/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<MovieInfo> editMovieInfo(@RequestBody @Valid MovieInfo movieInfoDTO, @PathVariable String id){
-        return movieInfoService.editMovieInfo(movieInfoDTO, id);
+    public Mono<ResponseEntity<MovieInfo>> editMovieInfo(@RequestBody @Valid MovieInfo movieInfoDTO, @PathVariable String id){
+        return movieInfoService.editMovieInfo(movieInfoDTO, id)
+                .map(ResponseEntity.ok()::body)
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()))
+                .log();
     }
 
     @GetMapping("/movieinfo/{id}")

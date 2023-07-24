@@ -131,7 +131,7 @@ class MoviesInfoControllerIntegrationTest {
                 .bodyValue(movieInfo)
                 .exchange()
                 .expectStatus()
-                .isCreated()
+                .is2xxSuccessful()
                 .expectBody(MovieInfo.class)
                 .consumeWith(movieInfoEntityExchangeResult -> {
                     var updatedMovieInfo = movieInfoEntityExchangeResult.getResponseBody();

@@ -11,13 +11,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.test.StepVerifier;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.when;
 
@@ -127,7 +125,7 @@ public class MovieInfoControllerUnitTest {
                 .bodyValue(movieInfo)
                 .exchange()
                 .expectStatus()
-                .isCreated()
+                .is2xxSuccessful()
                 .expectBody(MovieInfo.class)
                 .consumeWith(movieInfoEntityExchangeResult -> {
                     var updatedMovieInfo = movieInfoEntityExchangeResult.getResponseBody();
