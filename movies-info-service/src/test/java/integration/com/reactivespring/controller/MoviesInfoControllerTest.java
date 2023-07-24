@@ -116,6 +116,23 @@ class MoviesInfoControllerIntegrationTest {
     }
 
     @Test
+    void getMovieInfoByIdNotFoundTest() {
+        //when
+        var movieInfoId = "MVI_1tes404";
+
+        webTestClient
+                .get()
+                .uri(Utils.MOVIES_INFO_URL+"/{id}", movieInfoId)
+                .exchange()
+                .expectStatus()
+                .isNotFound();
+
+        //then
+
+
+    }
+
+    @Test
     void editMovieInfo() {
         var movieInfo = new MovieInfo(null, "Barbie", 2023,
                 List.of("Margot Robbie" ,"Ryan Gosling"),
