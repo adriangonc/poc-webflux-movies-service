@@ -139,6 +139,7 @@ public class MovieInfoControllerUnitTest {
 
     }
 
+
     @Test
     void deleteMovieInfoTest(){
         var movieInfoId = "MVI_3";
