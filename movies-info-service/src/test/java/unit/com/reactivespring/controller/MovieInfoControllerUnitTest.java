@@ -187,8 +187,7 @@ public class MovieInfoControllerUnitTest {
 
         //when
         var moviesInfoMono = new MovieInfo(null, "", -2019,
-                List.of("Song Kang-ho" ,"Jang Hye-jin" ,"Choi Woo-shik" ,"Park So-dam"
-                        ,"Lee Sun-kyun" ,"Cho Yeo-jeong"), LocalDate.parse("2019-07-11"));
+                List.of(""), LocalDate.parse("2019-07-11"));
 
         //then
         webTestClient
@@ -202,7 +201,7 @@ public class MovieInfoControllerUnitTest {
                 .consumeWith(stringEntityExchangeResult -> {
                     var response = stringEntityExchangeResult.getResponseBody();
                     System.out.println("responseBody: " + response);
-                    var expectedErrorMsg = "movieInfo.name must be present!,movieInfo.year must be a positive number!";
+                    var expectedErrorMsg = "movieInfo.cast must be present!,movieInfo.name must be present!,movieInfo.year must be a positive number!";
                     assert response != null;
                     assertEquals(expectedErrorMsg, response);
                 });
