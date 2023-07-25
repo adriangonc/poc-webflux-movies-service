@@ -1,8 +1,8 @@
 package com.reactivespring.controller;
 
 import com.reactivespring.domain.MovieInfo;
-import com.reactivespring.service.MovieInfoService;
-import lombok.Value;
+import com.reactivespring.service.IMovieInfoService;
+import com.reactivespring.service.MovieInfoServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +17,9 @@ import javax.validation.Valid;
 @Slf4j
 public class MoviesInfoController {
 
-    private MovieInfoService movieInfoService;
+    private IMovieInfoService movieInfoService;
 
-    public MoviesInfoController(MovieInfoService movieInfoService) {
+    public MoviesInfoController(MovieInfoServiceImpl movieInfoService) {
         this.movieInfoService = movieInfoService;
     }
 

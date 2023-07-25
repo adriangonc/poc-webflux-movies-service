@@ -7,9 +7,9 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
-public class MovieInfoService {
+public class MovieInfoServiceImpl implements IMovieInfoService {
 
-    public MovieInfoService(MovieInfoRepository movieInfoRepository) {
+    public MovieInfoServiceImpl(MovieInfoRepository movieInfoRepository) {
         this.movieInfoRepository = movieInfoRepository;
     }
 

@@ -1,7 +1,7 @@
 package com.reactivespring.controller;
 
 import com.reactivespring.domain.MovieInfo;
-import com.reactivespring.service.MovieInfoService;
+import com.reactivespring.service.MovieInfoServiceImpl;
 import com.reactivespring.utils.Utils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class MovieInfoControllerUnitTest {
     private WebTestClient webTestClient;
 
     @MockBean
-    private MovieInfoService movieInfoServiceMock;
+    private MovieInfoServiceImpl movieInfoServiceMock;
 
     @Test
     void getAllMoviesInfoTest(){
