@@ -210,4 +210,22 @@ class MoviesInfoControllerIntegrationTest {
                 .hasSize(2);
     }
 
+    @Test
+    void listMoviesInfoByYearTest() {
+        //when
+
+        webTestClient
+                .get()
+                .uri(Utils.MOVIES_INFO_URL)
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+                .expectBodyList(MovieInfo.class)
+                .hasSize(3);
+
+        //then
+
+
+    }
+
 }
