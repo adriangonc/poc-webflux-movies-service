@@ -124,4 +124,18 @@ class MovieInfoRepositoryIntegrationTest {
                 .verifyComplete();
     }
 
+    @Test
+    void findByYearTest(){
+        //given
+        var year = 1979;
+
+        //when
+        var moviesInfoFlux = movieInfoRepository.findByYear(year).log();
+
+        //then
+        StepVerifier.create(moviesInfoFlux)
+                .expectNextCount(1)
+                .verifyComplete();
+    }
+
 }
