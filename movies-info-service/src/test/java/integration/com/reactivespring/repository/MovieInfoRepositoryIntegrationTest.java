@@ -138,4 +138,20 @@ class MovieInfoRepositoryIntegrationTest {
                 .verifyComplete();
     }
 
+    @Test
+    void findByNameTest(){
+        //given
+        var name = "Alien";
+
+        //when
+        var movieInfoMono = movieInfoRepository.findByName(name).log();
+
+        //then
+        StepVerifier.create(movieInfoMono)
+                .assertNext(movieInfo -> {
+                    assertEquals(movieInfo.getName(), name);
+                })
+                .verifyComplete();
+    }
+
 }

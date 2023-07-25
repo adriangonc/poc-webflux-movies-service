@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -212,16 +213,45 @@ class MoviesInfoControllerIntegrationTest {
 
     @Test
     void listMoviesInfoByYearTest() {
+        var uri = UriComponentsBuilder.fromUriString(Utils.MOVIES_INFO_URL)
+                        .queryParam("year", 1979)
+                                .buildAndExpand()
+                                        .toUri();
+
         //when
 
         webTestClient
                 .get()
-                .uri(Utils.MOVIES_INFO_URL)
+                .uri(uri)
                 .exchange()
                 .expectStatus()
                 .is2xxSuccessful()
                 .expectBodyList(MovieInfo.class)
-                .hasSize(3);
+                .hasSize(1);
+
+        //then
+
+
+    }
+
+    @Test
+    void getMovieInfoByNameTest() {
+        var uri = UriComponentsBuilder.fromUriString(Utils.MOVIES_INFO_URL + "/name")
+                .queryParam("name", "Alien")
+                .buildAndExpand()
+                .toUri();
+
+        //when
+
+        webTestClient
+                .get()
+                .uri(uri)
+                .exchange()
+                .expectStatus()
+                .is2xxSuccessful()
+                .expectBody()
+                .jsonPath("$.name").isEqualTo("Alien")
+                .jsonPath("$.year").isEqualTo(1979);
 
         //then
 
