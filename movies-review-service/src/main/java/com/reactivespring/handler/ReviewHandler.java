@@ -20,9 +20,7 @@ public class ReviewHandler {
     public Mono<ServerResponse> addReview(ServerRequest request) {
 
         return request.bodyToMono(Review.class)
-                .flatMap(review -> {
-                    return reviewRepository.save(review);
-                })
+                .flatMap(reviewRepository::save)
                 .flatMap(savedReview -> {
                     return ServerResponse.status(HttpStatus.CREATED)
                             .bodyValue(savedReview);
