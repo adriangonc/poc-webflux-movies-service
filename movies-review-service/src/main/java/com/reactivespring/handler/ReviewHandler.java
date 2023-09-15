@@ -27,4 +27,10 @@ public class ReviewHandler {
                 });
 
     }
+
+    public Mono<ServerResponse> getReviews(ServerRequest request) {
+        var reviewsFlux = reviewRepository.findAll();
+        Mono<ServerResponse> body = ServerResponse.ok().body(reviewsFlux, Review.class);
+        return body;
+    }
 }

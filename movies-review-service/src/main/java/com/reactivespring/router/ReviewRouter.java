@@ -16,6 +16,7 @@ public class ReviewRouter {
         return route()
                 .GET("/v1/hello-world", (request -> ServerResponse.ok().bodyValue("Olá mundo!")))
                 .POST("/v1/reviews", request -> reviewHandler.addReview(request))
+                .GET("/v1/reviews", request -> reviewHandler.getReviews(request))
                 .build();
     }
 
